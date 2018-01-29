@@ -31,19 +31,34 @@ class Header extends Component {
 }
 
 class Action extends Component {
+   handleClick() {
+      console.log('clicked');
+   }
+
    render() {
       return (
          <div>
-            <button>What should I do?</button>
+            <button onClick={this.handleClick}>What should I do?</button>
+            
          </div>
       )
    }
 }
 
 class Options extends Component {
+   constructor(props) {
+      super(props);
+      this.handleRemoveAll = this.handleRemoveAll.bind(this);
+   }
+
+   handleRemoveAll() {
+      console.log('remove options');
+   }
+   
    render() {
       return (
-         <div>Options Component
+         <div>
+            <button onClick={this.handleRemoveAll}>Remove Options</button>
             {
                this.props.options.map((option) => <Option key={option} optionText={option} />) 
                }
@@ -61,9 +76,20 @@ class Option extends Component {
 }
 
 class AddOption extends Component {
+   onFormSubmit(e){
+      e.preventDefault();
+      const option = e.target.elements.option.value.trim();
+
+      if(option) {
+         alert(option);
+      }
+   }
    render() {
       return (
-         <div>AddOption Component</div>
+         <form onSubmit={this.onFormSubmit}>
+            <input type="text" name="option" />
+            <button>Submit</button>
+         </form>
       )
    }
 }
